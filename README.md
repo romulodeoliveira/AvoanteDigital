@@ -5,7 +5,7 @@
 
 # Introdução
 
-Este projeto foi criado durante meus estudos sobre <a href="#introdução">DDD</a> e arquitetura de software. O objetivo é criar uma API para captura de leads.
+Este projeto foi criado durante meus estudos sobre <a href="https://github.com/romulodeoliveira/AvoanteDigital/wiki">DDD</a> e arquitetura de software. O objetivo é criar uma API para captura de leads.
 
 # Tecnologias utilizadas
 

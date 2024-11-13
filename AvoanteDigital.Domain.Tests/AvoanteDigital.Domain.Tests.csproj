@@ -20,4 +20,8 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AvoanteDigital.Domain\AvoanteDigital.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

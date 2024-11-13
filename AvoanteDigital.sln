@@ -7,11 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain", "Av
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain.Api", "AvoanteDigital.Domain.Api\AvoanteDigital.Domain.Api.csproj", "{7ED1CF44-FC0A-431D-A2F2-114ABC062E23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain.Infra", "AvoanteDigital.Domain.Infra\AvoanteDigital.Domain.Infra.csproj", "{CC6B5CA8-7498-4C8E-8F39-39A779810177}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain.Tests", "AvoanteDigital.Domain.Tests\AvoanteDigital.Domain.Tests.csproj", "{685EAC18-B5F6-45C0-8C1C-12E9C73727C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain.Service", "AvoanteDigital.Domain.Service\AvoanteDigital.Domain.Service.csproj", "{CC6B9C59-57FC-4AFB-945D-EE936FC3C599}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain.Infra.Data", "AvoanteDigital.Domain.Infra.Data\AvoanteDigital.Domain.Infra.Data.csproj", "{91A8CD69-CF17-40CE-B5E3-85FE0C58DE04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvoanteDigital.Domain.Infra.CrossCutting", "AvoanteDigital.Domain.Infra.CrossCutting\AvoanteDigital.Domain.Infra.CrossCutting.csproj", "{E184EDF6-7A69-440B-BCB3-AFEDACCBF46A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +32,6 @@ Global
 		{7ED1CF44-FC0A-431D-A2F2-114ABC062E23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ED1CF44-FC0A-431D-A2F2-114ABC062E23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ED1CF44-FC0A-431D-A2F2-114ABC062E23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC6B5CA8-7498-4C8E-8F39-39A779810177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC6B5CA8-7498-4C8E-8F39-39A779810177}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC6B5CA8-7498-4C8E-8F39-39A779810177}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC6B5CA8-7498-4C8E-8F39-39A779810177}.Release|Any CPU.Build.0 = Release|Any CPU
 		{685EAC18-B5F6-45C0-8C1C-12E9C73727C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{685EAC18-B5F6-45C0-8C1C-12E9C73727C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{685EAC18-B5F6-45C0-8C1C-12E9C73727C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -42,5 +40,13 @@ Global
 		{CC6B9C59-57FC-4AFB-945D-EE936FC3C599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC6B9C59-57FC-4AFB-945D-EE936FC3C599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC6B9C59-57FC-4AFB-945D-EE936FC3C599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91A8CD69-CF17-40CE-B5E3-85FE0C58DE04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91A8CD69-CF17-40CE-B5E3-85FE0C58DE04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91A8CD69-CF17-40CE-B5E3-85FE0C58DE04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91A8CD69-CF17-40CE-B5E3-85FE0C58DE04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E184EDF6-7A69-440B-BCB3-AFEDACCBF46A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E184EDF6-7A69-440B-BCB3-AFEDACCBF46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E184EDF6-7A69-440B-BCB3-AFEDACCBF46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E184EDF6-7A69-440B-BCB3-AFEDACCBF46A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

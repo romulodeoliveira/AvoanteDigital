@@ -10,11 +10,11 @@ public interface IBaseService<TEntity> where TEntity : Entity
         where TInputModel : class
         where TOutputModel : class;
 
-    void Delete(int id);
+    void Delete(Guid id);
 
     IEnumerable<TOutputModel> Get<TOutputModel>() where TOutputModel : class;
 
-    TOutputModel GetById<TOutputModel>(int id) where TOutputModel : class;
+    TOutputModel GetById<TOutputModel>(Guid id) where TOutputModel : class;
 
     TOutputModel Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>

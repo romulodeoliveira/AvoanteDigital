@@ -41,10 +41,5 @@ public class CustomerMap : IEntityTypeConfiguration<Customer>
             .HasColumnType("datetime")
             .HasDefaultValueSql("CURRENT_TIMESTAMP")
             .ValueGeneratedOnAdd();
-
-        builder.Property(prop => prop.UpdatedAt)
-            .HasColumnName("UpdatedAt")
-            .HasColumnType("datetime")
-            .ValueGeneratedOnUpdate();
     }
 }

@@ -1,6 +1,6 @@
-namespace AvoanteDigital.Domain.Entities;
+namespace AvoanteDigital.Domain.Api.Models;
 
-public class Customer : Entity
+public class CreateCustomerModel
 {
     public string Name { get; set; }
     

@@ -1,7 +1,8 @@
-namespace AvoanteDigital.Domain.Entities;
+namespace AvoanteDigital.Domain.Api.Models;
 
-public class Customer : Entity
+public class CustomerModel
 {
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; }
     
     public String Email { get; set; }

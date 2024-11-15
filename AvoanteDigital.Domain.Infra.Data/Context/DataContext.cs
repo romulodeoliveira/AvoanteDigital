@@ -12,8 +12,8 @@ public class DataContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Customer>(new CustomerMap().Configure);
-
         base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<Customer>(new CustomerMap().Configure);
     }
 }

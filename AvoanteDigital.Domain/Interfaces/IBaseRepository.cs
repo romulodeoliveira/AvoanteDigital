@@ -8,9 +8,9 @@ public interface IBaseRepository<TEntity> where TEntity : Entity
 
     void Update(TEntity obj);
 
-    void Delete(int id);
+    void Delete(Guid id);
 
     IList<TEntity> Select();
 
-    TEntity Select(int id);
+    TEntity Select(Guid id);
 }

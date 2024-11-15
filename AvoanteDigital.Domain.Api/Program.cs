@@ -1,9 +1,37 @@
+using System.Text.Json.Serialization;
+using AutoMapper;
+using AvoanteDigital.Domain.Api.Models;
+using AvoanteDigital.Domain.Api.Profiles;
+using AvoanteDigital.Domain.Entities;
+using AvoanteDigital.Domain.Infra.Data.Context;
+using AvoanteDigital.Domain.Infra.Data.Repository;
+using AvoanteDigital.Domain.Interfaces;
+using AvoanteDigital.Domain.Service.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+});
+
+// Banco de dados
+builder.Services.AddDbContextPool<DataContext>(options => 
+    options.UseMySql(DataContextFactory.DbConfig, ServerVersion.AutoDetect(DataContextFactory.DbConfig)));
+
+// Injeção de dependência
+builder.Services.AddScoped<IBaseRepository<Customer>, BaseRepository<Customer>>();
+builder.Services.AddScoped<IBaseService<Customer>, BaseService<Customer>>();
+
+// Automapper ()
+builder.Services.AddAutoMapper(typeof(CustomerMappingProfile));
 
 var app = builder.Build();
 
@@ -16,29 +44,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

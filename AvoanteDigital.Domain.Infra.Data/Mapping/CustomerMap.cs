@@ -28,7 +28,7 @@ public class CustomerMap : IEntityTypeConfiguration<Customer>
             .HasConversion(prop => prop.ToString(), prop => prop)
             .IsRequired()
             .HasColumnName("Email")
-            .HasColumnType("varchar(100)");
+            .HasColumnType("varchar(50)");
         
         builder.Property(prop => prop.TelephoneNumber)
             .HasConversion(prop => prop.ToString(), prop => prop)

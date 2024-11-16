@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AvoanteDigital.Domain\AvoanteDigital.Domain.csproj" />
+    <ProjectReference Include="..\AvoanteDigital.Domain.Service\AvoanteDigital.Domain.Service.csproj" />
   </ItemGroup>
 
 </Project>

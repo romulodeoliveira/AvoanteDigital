@@ -38,7 +38,7 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
     {
         var entities = _repository.Select();
         
-        var outputModel = entities.Select(s => _mapper.Map<TOutputModel>(s));
+        var outputModel = entities.Select(entity => _mapper.Map<TOutputModel>(entity)).ToList();
 
         return outputModel;
     }

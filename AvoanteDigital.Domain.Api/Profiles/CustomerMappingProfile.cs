@@ -8,8 +8,10 @@ public class CustomerMappingProfile : Profile
 {
     public CustomerMappingProfile()
     {
+        // Customer
         CreateMap<Customer, CustomerModel>();
         CreateMap<CustomerModel, Customer>();
         CreateMap<CreateCustomerModel, Customer>();
+        CreateMap<Customer, GetCustomerModel>();
     }
 }

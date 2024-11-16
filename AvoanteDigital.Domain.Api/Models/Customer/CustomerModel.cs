@@ -2,7 +2,7 @@ namespace AvoanteDigital.Domain.Api.Models.Customer;
 
 public class CustomerModel
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; }
     
     public string Name { get; set; }
     
@@ -10,5 +10,5 @@ public class CustomerModel
     
     public string TelephoneNumber { get; set; }
     
-    public DateTime CreatedAt { get; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; }
 }

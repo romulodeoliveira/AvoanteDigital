@@ -12,7 +12,7 @@ public class CustomerTests
     {
         // Arrange
         var name = "Test";
-        var email = "johndoe@example.com";
+        var email = "test@example.com";
         var telephoneNumber = "1234567890";
 
         // Act
@@ -27,7 +27,8 @@ public class CustomerTests
         Assert.AreEqual(name, customer.Name);
         Assert.AreEqual(email, customer.Email);
         Assert.AreEqual(telephoneNumber, customer.TelephoneNumber);
-        Assert.IsTrue((DateTime.UtcNow - customer.CreatedAt).TotalSeconds < 1, "CreatedAt is not close to UTC Now.");
+        Assert.IsTrue((DateTime.UtcNow - customer.CreatedAt)
+            .TotalSeconds < 1, "CreatedAt is not close to UTC Now.");
     }
 
     // Name
@@ -48,8 +49,36 @@ public class CustomerTests
         var result = validator.Validate(customer);
         
         // Assert
-        Assert.IsFalse(result.IsValid, "Validation should fail when Name is empty.");
-        Assert.IsTrue(result.Errors.Any(e => e.PropertyName == "Name" && e.ErrorMessage == "Por favor, insira o nome"),
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when Name is empty.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "Name" && 
+                e.ErrorMessage == "Por favor, insira o nome"),
+            "Expected a validation error for the Name property.");
+    }
+
+    [TestMethod]
+    public void Should_Fail_When_The_Name_Is_Greater_Than_Thousand_Characters()
+    {
+        // Arrange
+        var customer = new Customer
+        {
+            Name = "Pedro de Alcântara João Carlos Leopoldo Salvador Bibiano Francisco Xavier de Paula Leocádio Miguel Gabriel Rafael Gonzaga",
+            Email = "test@email.com",
+            TelephoneNumber = "01234567890",
+        };
+
+        var validator = new CustomerValidator();
+        
+        // Act
+        var result = validator.Validate(customer);
+        
+        // Assert
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when Name is greater than 100 characters.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "Name" && 
+                e.ErrorMessage == "O nome não pode ter mais que 100 caracteres"),
             "Expected a validation error for the Name property.");
     }
     
@@ -71,8 +100,86 @@ public class CustomerTests
         var result = validator.Validate(customer);
         
         // Assert
-        Assert.IsFalse(result.IsValid, "Validation should fail when Email is empty.");
-        Assert.IsTrue(result.Errors.Any(e => e.PropertyName == "Email" && e.ErrorMessage == "Por favor, insira o e-mail"),
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when Email is empty.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "Email" && 
+                e.ErrorMessage == "Por favor, insira o e-mail"),
+            "Expected a validation error for the Email property.");
+    }
+
+    [TestMethod]
+    public void Should_Fail_When_The_Email_Doesnt_Have_At_Sign()
+    {
+        // Arrange
+        var customer = new Customer
+        {
+            Name = "test",
+            Email = "testemail.com",
+            TelephoneNumber = "01234567890",
+        };
+
+        var validator = new CustomerValidator();
+        
+        // Act
+        var result = validator.Validate(customer);
+        
+        // Assert
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when Email doesn't have at sign.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "Email" && 
+                e.ErrorMessage == "O e-mail deve conter o caractere '@'"),
+            "Expected a validation error for the Email property.");
+    }
+    
+    [TestMethod]
+    public void Should_Fail_When_The_Email_Doesnt_Have_Full_Stop()
+    {
+        // Arrange
+        var customer = new Customer
+        {
+            Name = "test",
+            Email = "test@emailcom",
+            TelephoneNumber = "01234567890",
+        };
+
+        var validator = new CustomerValidator();
+        
+        // Act
+        var result = validator.Validate(customer);
+        
+        // Assert
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when Email doesn't have full stop.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "Email" && 
+                e.ErrorMessage == "O e-mail deve conter o caractere '.'"),
+            "Expected a validation error for the Email property.");
+    }
+    
+    [TestMethod]
+    public void Should_Fail_When_The_Email_Is_Greater_Than_Thousand_Characters()
+    {
+        // Arrange
+        var customer = new Customer
+        {
+            Name = "Test",
+            Email = "email_avoante_digital_fortaleza_ceara_teste@gmail.com",
+            TelephoneNumber = "01234567890",
+        };
+
+        var validator = new CustomerValidator();
+        
+        // Act
+        var result = validator.Validate(customer);
+        
+        // Assert
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when Email is greater than 100 characters.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "Email" && 
+                e.ErrorMessage == "O e-mail não pode ter mais que 50 caracteres"),
             "Expected a validation error for the Email property.");
     }
     
@@ -94,8 +201,11 @@ public class CustomerTests
         var result = validator.Validate(customer);
         
         // Assert
-        Assert.IsFalse(result.IsValid, "Validation should fail when TelephoneNumber is empty.");
-        Assert.IsTrue(result.Errors.Any(e => e.PropertyName == "TelephoneNumber" && e.ErrorMessage == "Por favor, insira o telefone"),
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when TelephoneNumber is empty.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "TelephoneNumber" && 
+                e.ErrorMessage == "Por favor, insira o telefone"),
             "Expected a validation error for the TelephoneNumber property.");
     }
 
@@ -115,8 +225,11 @@ public class CustomerTests
         var result = validator.Validate(customer);
 
         // Assert
-        Assert.IsFalse(result.IsValid, "Validation should fail when TelephoneNumber is greater than 11 characters.");
-        Assert.IsTrue(result.Errors.Any(e => e.PropertyName == "TelephoneNumber" && e.ErrorMessage == "O número de telefone deve ter exatamente 11 caracteres"),
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when TelephoneNumber is greater than 11 characters.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "TelephoneNumber" && 
+                e.ErrorMessage == "O número de telefone deve ter exatamente 11 caracteres"),
             "Expected a validation error for the TelephoneNumber property.");
     }
 
@@ -136,8 +249,11 @@ public class CustomerTests
         var result = validator.Validate(customer);
 
         // Assert
-        Assert.IsFalse(result.IsValid, "Validation should fail when TelephoneNumber is less than 11 characters.");
-        Assert.IsTrue(result.Errors.Any(e => e.PropertyName == "TelephoneNumber" && e.ErrorMessage == "O número de telefone deve ter exatamente 11 caracteres"),
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when TelephoneNumber is less than 11 characters.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "TelephoneNumber" && 
+                e.ErrorMessage == "O número de telefone deve ter exatamente 11 caracteres"),
             "Expected a validation error for the TelephoneNumber property.");
     }
 
@@ -157,8 +273,11 @@ public class CustomerTests
         var result = validator.Validate(customer);
 
         // Assert
-        Assert.IsFalse(result.IsValid, "Validation should fail when TelephoneNumber has blanks.");
-        Assert.IsTrue(result.Errors.Any(e => e.PropertyName == "TelephoneNumber" && e.ErrorMessage == "O telefone não pode conter espaços em branco"),
+        Assert.IsFalse(result.IsValid, 
+            "Validation should fail when TelephoneNumber has blanks.");
+        Assert.IsTrue(result.Errors.Any(e => 
+                e.PropertyName == "TelephoneNumber" && 
+                e.ErrorMessage == "O telefone não pode conter espaços em branco"),
             "Expected a validation error for the TelephoneNumber property.");
     }
 }

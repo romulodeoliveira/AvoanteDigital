@@ -1,4 +1,4 @@
-using AvoanteDigital.Domain.Api.Models;
+using AvoanteDigital.Domain.Api.Models.Customer;
 using AvoanteDigital.Domain.Entities;
 using AvoanteDigital.Domain.Interfaces;
 using AvoanteDigital.Domain.Service.Validators;

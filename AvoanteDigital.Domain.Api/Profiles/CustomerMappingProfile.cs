@@ -1,5 +1,5 @@
 using AutoMapper;
-using AvoanteDigital.Domain.Api.Models;
+using AvoanteDigital.Domain.Api.Models.Customer;
 using AvoanteDigital.Domain.Entities;
 
 namespace AvoanteDigital.Domain.Api.Profiles;

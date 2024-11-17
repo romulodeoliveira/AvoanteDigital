@@ -10,5 +10,5 @@ public class CustomerModel
     
     public string TelephoneNumber { get; set; }
     
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; }  = DateTime.UtcNow;
 }

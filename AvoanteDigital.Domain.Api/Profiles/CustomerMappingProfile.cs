@@ -20,9 +20,8 @@ public class CustomerMappingProfile : Profile
         CreateMap<User, UserModel>();
         CreateMap<UserModel, User>();
         CreateMap<CreateUserModel, User>()
-            .ForMember(dest 
-                    => dest.Password, opt => opt.MapFrom(src =>
-                        new Password(src.Password)));
+            .ForMember(dest => dest.Password, opt => opt.MapFrom(src => 
+                new Password { PasswordLiteral = src.Password }));
 
     }
 }

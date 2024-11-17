@@ -29,12 +29,13 @@ public class UserValidator : AbstractValidator<User>
             .DependentRules(() =>
             {
                 RuleFor(u => u.Password.PasswordLiteral)
-                    .NotEmpty().WithMessage("A senha não pode ser vazia.")
-                    .MinimumLength(8).WithMessage("A senha deve ter pelo menos 8 caracteres.")
-                    .Matches("[A-Z]").WithMessage("A senha deve conter pelo menos uma letra maiúscula.")
-                    .Matches("[a-z]").WithMessage("A senha deve conter pelo menos uma letra minúscula.")
-                    .Matches("[0-9]").WithMessage("A senha deve conter pelo menos um número.")
-                    .Matches("[^a-zA-Z0-9]").WithMessage("A senha deve conter pelo menos um caractere especial.");
+                    .NotEmpty().WithMessage("A senha não pode ser vazia")
+                    .MaximumLength(20).WithMessage("A senha deve ter, no máximo, 20 caracteres")
+                    .MinimumLength(8).WithMessage("A senha deve ter pelo menos 8 caracteres")
+                    .Matches("[A-Z]").WithMessage("A senha deve conter pelo menos uma letra maiúscula")
+                    .Matches("[a-z]").WithMessage("A senha deve conter pelo menos uma letra minúscula")
+                    .Matches("[0-9]").WithMessage("A senha deve conter pelo menos um número")
+                    .Matches("[^a-zA-Z0-9]").WithMessage("A senha deve conter pelo menos um caractere especial");
             });
     }
 }

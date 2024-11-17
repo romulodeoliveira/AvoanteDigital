@@ -90,3 +90,6 @@ wwwroot/
 
 # Dependency Manager
 global.json
+
+# Migrations
+AvoanteDigital.Domain.Infra.Data/Migrations/

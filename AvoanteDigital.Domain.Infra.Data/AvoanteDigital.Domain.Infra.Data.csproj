@@ -23,4 +23,8 @@
     <ProjectReference Include="..\AvoanteDigital.Domain\AvoanteDigital.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

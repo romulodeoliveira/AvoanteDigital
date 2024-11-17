@@ -1,5 +1,4 @@
-using AvoanteDigital.Domain.Api.Models.Customer;
-using AvoanteDigital.Domain.Api.Models.Responses;
+using AvoanteDigital.Domain.Api.Models.User;
 using AvoanteDigital.Domain.Entities;
 using AvoanteDigital.Domain.Interfaces;
 using AvoanteDigital.Domain.Service.Validators;
@@ -9,25 +8,19 @@ namespace AvoanteDigital.Domain.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class CustomerController : ControllerBase
+public class UserController : ControllerBase
 {
-    private IBaseService<Customer> _baseCustomerService;
-
-    public CustomerController(IBaseService<Customer> baseCustomerService)
+    private IBaseService<User> _baseUserService;
+    
+    public UserController(IBaseService<User> baseUserService)
     {
-        _baseCustomerService = baseCustomerService;
-    }
-
-    [HttpGet]
-    public IActionResult PullAllData()
-    {
-        return Execute(() => _baseCustomerService.Get<GetCustomerModel>());
+        _baseUserService = baseUserService;
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] CreateCustomerModel customer)
+    public IActionResult Register([FromBody] CreateUserModel user)
     {
-        return Execute(() => _baseCustomerService.Add<CreateCustomerModel, CustomerModel, CustomerValidator>(customer));
+        return Execute(() => _baseUserService.Add<CreateUserModel, UserModel, UserValidator>(user));
     }
     
     private IActionResult Execute(Func<object> func)

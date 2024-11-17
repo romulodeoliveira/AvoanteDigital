@@ -15,6 +15,7 @@ public class Password
 
     public Password(string password)
     {
+        PasswordLiteral = password;
         SetPassword(password);
     }
 

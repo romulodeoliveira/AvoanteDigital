@@ -10,5 +10,4 @@ public class User : Entity
     public string Email { get; set; }
     public Password Password { get; set; }
     public UserRole Role { get; set; }
-    public DateTime CreatedAt { get; } = DateTime.UtcNow;
 }

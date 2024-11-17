@@ -7,6 +7,4 @@ public class Customer : Entity
     public String Email { get; set; }
     
     public string TelephoneNumber { get; set; }
-    
-    public DateTime CreatedAt { get; } = DateTime.UtcNow;
 }

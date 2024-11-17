@@ -1,4 +1,5 @@
 using AvoanteDigital.Domain.Entities;
+using AvoanteDigital.Domain.Enums;
 using FluentValidation;
 
 namespace AvoanteDigital.Domain.Service.Validators;
@@ -20,7 +21,8 @@ public class UserValidator : AbstractValidator<User>
             .MaximumLength(100).WithMessage("O e-mail não pode ter mais que 100 caracteres.");
         
         RuleFor(u => u.Role)
-            .IsInEnum().WithMessage("O papel do usuário deve ser válido.");
+            .Must(role => role == UserRole.Admin || role == UserRole.User)
+            .WithMessage("O papel do usuário deve ser válido. Valores aceitos: 1 (Admin) ou 2 (User).");
 
         RuleFor(u => u.Password)
             .NotNull().WithMessage("A senha é obrigatória.")

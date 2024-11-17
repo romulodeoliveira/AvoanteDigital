@@ -2,6 +2,7 @@ using AutoMapper;
 using AvoanteDigital.Domain.Api.Models.Customer;
 using AvoanteDigital.Domain.Api.Models.User;
 using AvoanteDigital.Domain.Entities;
+using AvoanteDigital.Domain.Enums;
 using AvoanteDigital.Domain.ValueObjects;
 
 namespace AvoanteDigital.Domain.Api.Profiles;
@@ -21,7 +22,7 @@ public class CustomerMappingProfile : Profile
         CreateMap<UserModel, User>();
         CreateMap<CreateUserModel, User>()
             .ForMember(dest => dest.Password, opt => opt.MapFrom(src => 
-                new Password { PasswordLiteral = src.Password }));
-
+                new Password(src.Password)))
+            .ForMember(dest => dest.Role, opt => opt.MapFrom(src => (UserRole)src.UserRole));
     }
 }

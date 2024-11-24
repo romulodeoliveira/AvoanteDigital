@@ -12,7 +12,10 @@ public class UserMap : IEntityTypeConfiguration<User>
         builder.ToTable("User");
 
             // Definindo a chave primária
-            builder.HasKey(u => u.Id);
+            builder.HasKey(u => new { u.Id, u.Email });
+            
+            builder.Property(u => u.Id)
+                .ValueGeneratedOnAdd();
 
             // Definindo a propriedade 'Firstname' como obrigatória, com um nome de coluna personalizado e tipo 'varchar(100)'
             builder.Property(u => u.Firstname)
@@ -31,6 +34,9 @@ public class UserMap : IEntityTypeConfiguration<User>
                 .IsRequired()
                 .HasColumnName("Email")
                 .HasColumnType("varchar(50)");
+            
+            builder.HasIndex(u => u.Email)
+                .IsUnique();
 
             // Mapeando a propriedade 'Password' como um Owned Type
             builder.OwnsOne(u => u.Password, password =>

@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace AvoanteDigital.Domain.Service.Validators;
 
-public class UserValidator : AbstractValidator<User>
+public class RegisterUserValidator : AbstractValidator<User>
 {
-    public UserValidator()
+    public RegisterUserValidator()
     {
         RuleFor(u => u.Firstname)
             .NotEmpty().WithMessage("Por favor, insira o primeiro nome.")

@@ -24,5 +24,8 @@ public class CustomerMappingProfile : Profile
             .ForMember(dest => dest.Password, opt => opt.MapFrom(src => 
                 new Password(src.Password)))
             .ForMember(dest => dest.Role, opt => opt.MapFrom(src => (UserRole)src.UserRole));
+        CreateMap<LoginUserModel, User>()
+            .ForMember(dest => dest.Password, opt => opt.MapFrom(src =>
+                new Password(src.Password)));
     }
 }

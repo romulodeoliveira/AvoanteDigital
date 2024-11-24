@@ -1,5 +1,6 @@
 using AvoanteDigital.Domain.Enums;
 using AvoanteDigital.Domain.ValueObjects;
+using Microsoft.AspNetCore.Identity;
 
 namespace AvoanteDigital.Domain.Entities;
 

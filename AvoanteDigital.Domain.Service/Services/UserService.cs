@@ -2,6 +2,7 @@ using AvoanteDigital.Domain.Entities;
 using AvoanteDigital.Domain.Helper;
 using AvoanteDigital.Domain.Infra.Data.Repository;
 using AvoanteDigital.Domain.Interfaces;
+using AvoanteDigital.Domain.Service.Validators;
 using Microsoft.Extensions.Configuration;
 
 namespace AvoanteDigital.Domain.Service.Services;
@@ -15,34 +16,14 @@ public class UserService : IUserService
         _repository = repository;
     }
     
-    public (bool, string) CheckCredentials(string email, string password)
+    public (bool, string) CheckCredentials(string emailFromRequest, string passwordFromRequest)
     {
         try
         {
-            var user = _repository.SelectUser(email);
-
-            if (user == null)
-            {
-                return (false, "Credenciais inválidas");
-            }
-            else
-            {
-                bool passwordChecked = PasswordHelper.VerifyPasswordHash(
-                    password,
-                    user.Password.Hash, 
-                    user.Password.Salt
-                );
-
-                if (passwordChecked)
-                {
-                    return (false, "Credenciais inválidas");
-                }
-                else
-                {
-                    string token = TokenHelper.CreateToken(user);
-                    return (true, token);
-                }
-            }
+            var user = _repository.SelectUser(emailFromRequest);
+            var response = LoginUserValidator.IsValid(user, passwordFromRequest);
+                
+            return (response.result, response.message);
         }
         catch (Exception error)
         {

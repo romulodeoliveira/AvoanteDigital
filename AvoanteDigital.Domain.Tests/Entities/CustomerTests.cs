@@ -1,5 +1,5 @@
 using AvoanteDigital.Domain.Entities;
-using AvoanteDigital.Domain.Service.Validators;
+using AvoanteDigital.Service.Validators;
 
 namespace AvoanteDigital.Domain.Tests.Entities;
 

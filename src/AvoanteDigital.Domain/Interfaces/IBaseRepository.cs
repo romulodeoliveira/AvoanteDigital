@@ -1,16 +1,17 @@
+using System.Collections;
 using AvoanteDigital.Domain.Entities;
 
 namespace AvoanteDigital.Domain.Interfaces;
 
 public interface IBaseRepository<TEntity> where TEntity : Entity
 {
-    void Insert(TEntity obj);
+    Task InsertAsync(TEntity obj);
 
-    void Update(TEntity obj);
+    Task UpdateAsync(TEntity obj);
 
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id);
 
-    IList<TEntity> Select();
+    Task<IEnumerable<TEntity>> SelectAsync();
 
-    TEntity Select(Guid id);
+    Task<TEntity> SelectAsync(Guid id);
 }

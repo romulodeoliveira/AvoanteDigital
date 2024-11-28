@@ -5,18 +5,18 @@ namespace AvoanteDigital.Domain.Interfaces;
 
 public interface IBaseService<TEntity> where TEntity : Entity
 {
-    TOutputModel Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    Task<TOutputModel> AddAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
         where TOutputModel : class;
 
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id);
 
-    IEnumerable<TOutputModel> Get<TOutputModel>() where TOutputModel : class;
+    Task<IEnumerable<TOutputModel>> GetAsync<TOutputModel>() where TOutputModel : class;
 
-    TOutputModel GetById<TOutputModel>(Guid id) where TOutputModel : class;
+    Task<TOutputModel> GetByIdAsync<TOutputModel>(Guid id) where TOutputModel : class;
 
-    TOutputModel Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    Task<TOutputModel> UpdateAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
         where TOutputModel : class;

@@ -16,13 +16,13 @@ public class UserService : IUserService
         _repository = repository;
     }
     
-    public (bool, string) CheckCredentials(string emailFromRequest, string passwordFromRequest)
+    public async Task<(bool, string)> CheckCredentialsAsync(string emailFromRequest, string passwordFromRequest)
     {
         try
         {
-            var user = _repository.SelectUser(emailFromRequest);
+            var user = await _repository.SelectUserAsync(emailFromRequest);
             var response = LoginUserValidator.IsValid(user, passwordFromRequest);
-                
+            
             return (response.result, response.message);
         }
         catch (Exception error)

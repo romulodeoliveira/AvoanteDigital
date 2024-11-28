@@ -4,6 +4,6 @@ namespace AvoanteDigital.Domain.Interfaces;
 
 public interface IUserRepository
 {
-    void UpdateUser(User user);
-    User SelectUser(string email);
+    Task UpdateUserAsync(User user);
+    Task <User> SelectUserAsync(string email);
 }

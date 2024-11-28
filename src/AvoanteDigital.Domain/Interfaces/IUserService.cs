@@ -4,5 +4,5 @@ namespace AvoanteDigital.Domain.Interfaces;
 
 public interface IUserService
 {
-    (bool, string) CheckCredentials(string email, string password);
+    Task<(bool, string)> CheckCredentialsAsync(string email, string password);
 }

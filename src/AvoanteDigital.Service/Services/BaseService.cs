@@ -17,57 +17,57 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
         _mapper = mapper;
     }
     
-    public TOutputModel Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    public async Task<TOutputModel> AddAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
         where TOutputModel : class
     {
         TEntity entity = _mapper.Map<TEntity>(inputModel);
         
-        Validate(entity, Activator.CreateInstance<TValidator>());
-        _repository.Insert(entity);
+        await Validate(entity, Activator.CreateInstance<TValidator>());
+        await _repository.InsertAsync(entity);
         
         TOutputModel outputModel = _mapper.Map<TOutputModel>(entity);
         
         return outputModel;
     }
 
-    public void Delete(Guid id) => _repository.Delete(id);
+    public async Task DeleteAsync(Guid id) => await _repository.DeleteAsync(id);
 
-    public IEnumerable<TOutputModel> Get<TOutputModel>() where TOutputModel : class
+    public async Task<IEnumerable<TOutputModel>> GetAsync<TOutputModel>() where TOutputModel : class
     {
-        var entities = _repository.Select();
+        var entities = await _repository.SelectAsync();
         
         var outputModel = entities.Select(entity => _mapper.Map<TOutputModel>(entity)).ToList();
 
         return outputModel;
     }
 
-    public TOutputModel GetById<TOutputModel>(Guid id) where TOutputModel : class
+    public async Task<TOutputModel> GetByIdAsync<TOutputModel>(Guid id) where TOutputModel : class
     {
-        var entity = _repository.Select(id);
+        var entity = await _repository.SelectAsync(id);
         
         var outputModel = _mapper.Map<TOutputModel>(entity);
 
         return outputModel;
     }
 
-    public TOutputModel Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    public async Task<TOutputModel> UpdateAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
         where TOutputModel : class
     {
         TEntity entity = _mapper.Map<TEntity>(inputModel);
 
-        Validate(entity, Activator.CreateInstance<TValidator>());
-        _repository.Update(entity);
+        await Validate(entity, Activator.CreateInstance<TValidator>());
+        await _repository.UpdateAsync(entity);
 
         TOutputModel outputModel = _mapper.Map<TOutputModel>(entity);
 
         return outputModel;
     }
 
-    private void Validate(TEntity obj, AbstractValidator<TEntity> validator)
+    private async Task Validate(TEntity obj, AbstractValidator<TEntity> validator)
     {
         if (obj == null)
             throw new Exception("Registros não detectados!");

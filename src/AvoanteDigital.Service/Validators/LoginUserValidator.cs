@@ -12,23 +12,18 @@ public class LoginUserValidator
         {
             return (false, "Credenciais inválidas");
         }
-        else
-        {
-            bool passwordChecked = PasswordHelper.VerifyPasswordHash(
-                passwordFromRequest,
-                user.Password.Hash,
-                user.Password.Salt
-            );
+        
+        bool passwordChecked = PasswordHelper.VerifyPasswordHash(
+            passwordFromRequest,
+            user.Password.Hash,
+            user.Password.Salt
+        );
 
-            if (passwordChecked)
-            {
-                return (false, "Credenciais inválidas");
-            }
-            else
-            {
-                string token = TokenHelper.CreateToken(user);
-                return (true, token);
-            }
+        if (!passwordChecked)
+        {
+            return (false, "Credenciais inválidas");
         }
+        string token = TokenHelper.CreateToken(user);
+        return (true, token);
     }
 }

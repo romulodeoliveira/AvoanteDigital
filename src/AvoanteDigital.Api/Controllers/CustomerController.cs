@@ -18,23 +18,23 @@ public class CustomerController : ControllerBase
         _baseCustomerService = baseCustomerService;
     }
 
-    [HttpGet]
-    public IActionResult PullAllData()
+    [HttpGet("pull-all-data")]
+    public async Task<IActionResult> PullAllDataAsync()
     {
-        return Execute(() => _baseCustomerService.Get<GetCustomerModel>());
+        return await ExecuteAsync(() => _baseCustomerService.GetAsync<GetCustomerModel>());
     }
 
-    [HttpPost]
-    public IActionResult Create([FromBody] CreateCustomerModel customer)
+    [HttpPost("submit-data")]
+    public async Task<IActionResult> CreateAsync([FromBody] CreateCustomerModel customer)
     {
-        return Execute(() => _baseCustomerService.Add<CreateCustomerModel, CustomerModel, CustomerValidator>(customer));
+        return await ExecuteAsync(() => _baseCustomerService.AddAsync<CreateCustomerModel, CustomerModel, CustomerValidator>(customer));
     }
     
-    private IActionResult Execute(Func<object> func)
+    private async Task<IActionResult> ExecuteAsync<T>(Func<Task<T>> func)
     {
         try
         {
-            var result = func();
+            var result = await func();
             return Ok(result);
         }
         catch (Exception error)

@@ -23,25 +23,25 @@ public class UserController : ControllerBase
 
     [Authorize(Roles = "Admin")]
     [HttpPost("register")]
-    public IActionResult Register([FromBody] CreateUserModel user)
+    public async Task<IActionResult> RegisterAsync([FromBody] CreateUserModel user)
     {
-        return Execute(() => _baseUserService.Add<CreateUserModel, UserModel, RegisterUserValidator>(user));
+        return await ExecuteAsync(() => _baseUserService.AddAsync<CreateUserModel, UserModel, RegisterUserValidator>(user));
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginUserModel request)
+    public async Task<IActionResult> LoginAsync([FromBody] LoginUserModel request)
     {
-        var (isValid, response) = _userService.CheckCredentials(request.Email, request.Password);
+        var (isValid, response) = await _userService.CheckCredentialsAsync(request.Email, request.Password);
         return isValid 
             ? Ok(new { token = response }) 
             : Unauthorized(new { message = response });
     }
     
-    private IActionResult Execute(Func<object> func)
+    private async Task<IActionResult> ExecuteAsync<T>(Func<Task<T>> func)
     {
         try
         {
-            var result = func();
+            var result = await func();
             return Ok(result);
         }
         catch (Exception error)

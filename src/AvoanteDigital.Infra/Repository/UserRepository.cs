@@ -14,12 +14,12 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
-    public void UpdateUser(User user)
+    public async Task UpdateUserAsync(User user)
     {
         _context.Entry(user).State = EntityState.Modified;
         _context.SaveChanges();
     }
     
-    public User SelectUser(string email) =>
+    public async Task<User> SelectUserAsync(string email) =>
         _context.Users.SingleOrDefault(u => u.Email == email);
 }

@@ -28,7 +28,7 @@ public class RegisterUserValidator : AbstractValidator<User>
             .NotNull().WithMessage("A senha é obrigatória.")
             .DependentRules(() =>
             {
-                RuleFor(u => u.Password.PasswordLiteral)
+                RuleFor(u => u.Password.Literal)
                     .NotEmpty().WithMessage("A senha não pode ser vazia")
                     .MaximumLength(20).WithMessage("A senha deve ter, no máximo, 20 caracteres")
                     .MinimumLength(8).WithMessage("A senha deve ter pelo menos 8 caracteres")

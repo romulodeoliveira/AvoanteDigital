@@ -7,7 +7,7 @@ namespace AvoanteDigital.Domain.ValueObjects;
 public class Password
 {
     [NotMapped]
-    public string PasswordLiteral { get; set; }
+    public string Literal { get; set; }
     public byte[] Hash { get; private set; }
     public byte[] Salt { get; private set; }
 
@@ -15,13 +15,13 @@ public class Password
 
     public Password(string password)
     {
-        PasswordLiteral = password;
+        Literal = password;
         SetPassword(password);
     }
 
     public void SetPassword(string password)
     {
-        PasswordLiteral = password;
+        Literal = password;
         PasswordHelper.CreatePasswordHash(password, out byte[] hash, out byte[] salt);
         Hash = hash;
         Salt = salt;

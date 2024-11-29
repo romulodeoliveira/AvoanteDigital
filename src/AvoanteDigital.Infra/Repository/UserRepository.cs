@@ -17,9 +17,9 @@ public class UserRepository : IUserRepository
     public async Task UpdateUserAsync(User user)
     {
         _context.Entry(user).State = EntityState.Modified;
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
     }
     
     public async Task<User> SelectUserAsync(string email) =>
-        _context.Users.SingleOrDefault(u => u.Email == email);
+        await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
 }

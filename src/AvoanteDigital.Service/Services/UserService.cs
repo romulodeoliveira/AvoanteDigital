@@ -4,6 +4,7 @@ using AvoanteDigital.Domain.Helper;
 using AvoanteDigital.Infra.Repository;
 using AvoanteDigital.Domain.Interfaces;
 using AvoanteDigital.Service.Validators;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 
 namespace AvoanteDigital.Service.Services;
@@ -41,5 +42,35 @@ public class UserService : IUserService
         var user = await _repository.SelectUserAsync(email);
         var outputModel = _mapper.Map<TOutputModel>(user);
         return outputModel;
+    }
+    
+    public async Task<bool> UpdateUserProfileAsync<TValidator, TInputModel>(TInputModel inputModel, string email)
+        where TValidator : AbstractValidator<User>
+        where TInputModel : class
+    {
+        var user = await _repository.SelectUserAsync(email);
+        _mapper.Map(inputModel, user);
+        await Validate(user, Activator.CreateInstance<TValidator>());
+        await _repository.UpdateUserAsync(user);
+        return true;
+    }
+    
+    public async Task<bool> UpdateUserActivityAsync<TValidator, TInputModel>(TInputModel inputModel, string email)
+        where TValidator : AbstractValidator<User>
+        where TInputModel : class
+    {
+        var user = await _repository.SelectUserAsync(email);
+        _mapper.Map(inputModel, user);
+        await Validate(user, Activator.CreateInstance<TValidator>());
+        await _repository.UpdateUserAsync(user);
+        return true;
+    }
+    
+    private async Task Validate(User obj, AbstractValidator<User> validator)
+    {
+        if (obj == null)
+            throw new Exception("Registros não detectados!");
+
+        validator.ValidateAndThrow(obj);
     }
 }

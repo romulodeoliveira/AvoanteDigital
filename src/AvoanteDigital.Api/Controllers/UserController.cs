@@ -51,8 +51,28 @@ public class UserController : ControllerBase
     }
     
     // TODO Update User
+    [Authorize(Policy = "AdminAndManager")]
+    [HttpPut("update-profile")]
+    public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileModel request)
+    {
+        var email = User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value;
+        return await ExecuteAsync(() => _userService.UpdateUserProfileAsync<UpdateProfileValidator, UpdateProfileModel>(request, email));
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpPut("update-user-activity")]
+    public async Task<IActionResult> UpdateUserActivity([FromBody] UserActivityModel request, string email)
+    {
+        return await ExecuteAsync(() => _userService.UpdateUserActivityAsync<UpdateUserActivityValidator, UserActivityModel>(request, email));
+    }
     
     // TODO Delete User
+    [Authorize(Policy = "AdminAndManager")]
+    [HttpDelete("delete-user")]
+    public async Task<IActionResult> DeleteUser(string email)
+    {
+        return null;
+    }
     
     private async Task<IActionResult> ExecuteAsync<T>(Func<Task<T>> func)
     {

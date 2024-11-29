@@ -9,4 +9,5 @@ public class UserModel
     public string Password { get; set; }
     public int UserRole { get; set; }
     public DateTime CreatedAt { get; } = DateTime.UtcNow;
+    public bool IsActive { get; set; } = true;
 }

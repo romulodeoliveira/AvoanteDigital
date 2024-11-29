@@ -75,6 +75,12 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminAndManager", policy =>
+        policy.RequireRole("Admin", "Manager"));
+});
+
 // Banco de dados
 builder.Services.AddDbContextPool<DataContext>(options => 
     options.UseMySql(DataContextFactory.DbConfig, ServerVersion.AutoDetect(DataContextFactory.DbConfig)));

@@ -32,7 +32,7 @@ public class UserTests
         Assert.AreEqual(firstName, user.Firstname);
         Assert.AreEqual(lastName, user.Lastname);
         Assert.AreEqual(email, user.Email);
-        Assert.AreEqual(password, user.Password.PasswordLiteral);
+        Assert.AreEqual(password, user.Password.Literal);
         Assert.AreEqual(role, user.Role);
         Assert.IsTrue((DateTime.UtcNow - user.CreatedAt)
             .TotalSeconds < 1, "CreatedAt is not close to UTC Now.");

@@ -21,8 +21,8 @@ public class RegisterUserValidator : AbstractValidator<User>
             .MaximumLength(100).WithMessage("O e-mail não pode ter mais que 100 caracteres.");
         
         RuleFor(u => u.Role)
-            .Must(role => role == UserRole.Admin || role == UserRole.User)
-            .WithMessage("O papel do usuário deve ser válido. Valores aceitos: 1 (Admin) ou 2 (User).");
+            .Must(role => role == UserRole.Admin || role == UserRole.Manager)
+            .WithMessage("O papel do usuário deve ser válido. Valores aceitos: 0 (Admin) ou 1 (User).");
 
         RuleFor(u => u.Password)
             .NotNull().WithMessage("A senha é obrigatória.")
@@ -37,5 +37,8 @@ public class RegisterUserValidator : AbstractValidator<User>
                     .Matches("[0-9]").WithMessage("A senha deve conter pelo menos um número")
                     .Matches("[^a-zA-Z0-9]").WithMessage("A senha deve conter pelo menos um caractere especial");
             });
+        
+        RuleFor(u => u.IsActive)
+            .NotNull().WithMessage("O status de atividade do usuário não pode ser nulo.");
     }
 }

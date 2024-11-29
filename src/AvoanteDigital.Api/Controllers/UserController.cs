@@ -37,6 +37,12 @@ public class UserController : ControllerBase
             : Unauthorized(new { message = response });
     }
     
+    // TODO Get All Users
+    
+    // TODO Update User
+    
+    // TODO Delete User
+    
     private async Task<IActionResult> ExecuteAsync<T>(Func<Task<T>> func)
     {
         try

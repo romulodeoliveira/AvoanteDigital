@@ -38,6 +38,17 @@ public class UserController : ControllerBase
     }
     
     // TODO Get All Users
+    [HttpGet("get-all-users")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        return await ExecuteAsync(() => _baseUserService.GetAsync<GetUserModel>());
+    }
+    
+    [HttpGet("get-user-by-id")]
+    public async Task<IActionResult> GetUserById(string email)
+    {
+        return await ExecuteAsync(() => _userService.GetUserByEmailAsync<GetUserModel>(email));
+    }
     
     // TODO Update User
     

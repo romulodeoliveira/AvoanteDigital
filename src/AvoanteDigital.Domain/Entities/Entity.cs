@@ -2,6 +2,6 @@ namespace AvoanteDigital.Domain.Entities;
 
 public abstract class Entity
 {
-    public virtual Guid Id { get; }
-    public virtual DateTime CreatedAt { get; } = DateTime.UtcNow;
+    public virtual Guid Id { get; init; }
+    public virtual DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 }

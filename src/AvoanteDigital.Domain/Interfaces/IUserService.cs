@@ -16,4 +16,6 @@ public interface IUserService
     Task<bool> UpdateUserActivityAsync<TValidator, TInputModel>(TInputModel inputModel, string email)
         where TValidator : AbstractValidator<User>
         where TInputModel : class;
+    
+    Task<bool> DeleteUserAsync(string email);
 }

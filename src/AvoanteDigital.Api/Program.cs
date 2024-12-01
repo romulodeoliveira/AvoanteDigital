@@ -1,7 +1,5 @@
 using System.Text;
 using System.Text.Json.Serialization;
-using AutoMapper;
-using AvoanteDigital.Api.Models;
 using AvoanteDigital.Api.Profiles;
 using AvoanteDigital.Domain.Entities;
 using AvoanteDigital.Domain.Helper;
@@ -77,8 +75,17 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminAndManager", policy =>
-        policy.RequireRole("Admin", "Manager"));
+    options.AddPolicy("IsActiveAndAdmin", policy =>
+    {
+        policy.RequireRole("Admin");
+        policy.RequireClaim("IsActive", "True");
+    });
+    
+    options.AddPolicy("IsActiveAndAdminAndManager", policy =>
+    {
+        policy.RequireRole("Admin", "Manager");
+        policy.RequireClaim("IsActive", "True");
+    });
 });
 
 // Banco de dados

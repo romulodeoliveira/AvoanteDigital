@@ -12,7 +12,7 @@ namespace AvoanteDigital.Service.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
-    
+
     private readonly IMapper _mapper;
 
     public UserService(IUserRepository repository, IMapper mapper)
@@ -20,14 +20,14 @@ public class UserService : IUserService
         _repository = repository;
         _mapper = mapper;
     }
-    
+
     public async Task<(bool, string)> CheckCredentialsAsync(string emailFromRequest, string passwordFromRequest)
     {
         try
         {
             var user = await _repository.SelectUserAsync(emailFromRequest);
             var response = LoginUserValidator.IsValid(user, passwordFromRequest);
-            
+
             return (response.result, response.message);
         }
         catch (Exception error)
@@ -43,7 +43,7 @@ public class UserService : IUserService
         var outputModel = _mapper.Map<TOutputModel>(user);
         return outputModel;
     }
-    
+
     public async Task<bool> UpdateUserProfileAsync<TValidator, TInputModel>(TInputModel inputModel, string email)
         where TValidator : AbstractValidator<User>
         where TInputModel : class
@@ -54,7 +54,7 @@ public class UserService : IUserService
         await _repository.UpdateUserAsync(user);
         return true;
     }
-    
+
     public async Task<bool> UpdateUserActivityAsync<TValidator, TInputModel>(TInputModel inputModel, string email)
         where TValidator : AbstractValidator<User>
         where TInputModel : class
@@ -65,8 +65,14 @@ public class UserService : IUserService
         await _repository.UpdateUserAsync(user);
         return true;
     }
-    
-    private async Task Validate(User obj, AbstractValidator<User> validator)
+
+    public async Task<bool> DeleteUserAsync(string email)
+    {
+        await _repository.DeleteAsync(email);
+        return true;
+    }
+
+private async Task Validate(User obj, AbstractValidator<User> validator)
     {
         if (obj == null)
             throw new Exception("Registros não detectados!");

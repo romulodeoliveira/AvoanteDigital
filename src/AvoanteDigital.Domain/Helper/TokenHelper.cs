@@ -16,7 +16,8 @@ public class TokenHelper
         List<Claim> claims = new List<Claim>
         {
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Role.ToString())
+            new Claim(ClaimTypes.Role, user.Role.ToString()),
+            new Claim("IsActive", user.IsActive.ToString())
         };
 
         var securityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Key));

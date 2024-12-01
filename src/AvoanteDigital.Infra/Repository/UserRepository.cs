@@ -22,4 +22,10 @@ public class UserRepository : IUserRepository
     
     public async Task<User> SelectUserAsync(string email) =>
         await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
+    
+    public async Task DeleteAsync(string email)
+    {
+        _context.Set<User>().Remove(await SelectUserAsync(email));
+        await _context.SaveChangesAsync();
+    }
 }

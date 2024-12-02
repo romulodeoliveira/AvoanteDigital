@@ -21,6 +21,17 @@ public class UserService : IUserService
         _mapper = mapper;
     }
 
+    public async Task<bool> RegisterAsync<TInputModel, TValidator>(TInputModel model)
+        where TValidator : AbstractValidator<User>
+        where TInputModel : class
+    {
+        User user = new User();
+        _mapper.Map(model, user);
+        await Validate(user, Activator.CreateInstance<TValidator>());
+        await _repository.RegisterAsync(user);
+        return true;
+    }
+
     public async Task<(bool, string)> CheckCredentialsAsync(string emailFromRequest, string passwordFromRequest)
     {
         try
@@ -35,6 +46,14 @@ public class UserService : IUserService
             Console.WriteLine(error.Message);
             throw;
         }
+    }
+
+    public async Task<IEnumerable<TOutputModel>> GetUsersAsync<TOutputModel>()
+        where TOutputModel : class
+    {
+        var user  = await _repository.SelectUserAsync();
+        var outputModel = user.Select(user => _mapper.Map<TOutputModel>(user)).ToList();
+        return outputModel;
     }
 
     public async Task<TOutputModel> GetUserByEmailAsync<TOutputModel>(string email) where TOutputModel : class

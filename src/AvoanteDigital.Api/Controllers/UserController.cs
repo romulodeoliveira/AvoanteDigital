@@ -1,5 +1,4 @@
 using AvoanteDigital.Api.Models.User;
-using AvoanteDigital.Domain.Entities;
 using AvoanteDigital.Domain.Interfaces;
 using AvoanteDigital.Service.Validators;
 using Microsoft.AspNetCore.Authorization;
@@ -11,12 +10,10 @@ namespace AvoanteDigital.Api.Controllers;
 [ApiController]
 public class UserController : ControllerBase
 {
-    private IBaseService<User> _baseUserService;
     private IUserService _userService;
     
-    public UserController(IBaseService<User> baseUserService, IUserService userService)
+    public UserController(IUserService userService)
     {
-        _baseUserService = baseUserService;
         _userService = userService;
     }
 
@@ -24,7 +21,7 @@ public class UserController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> RegisterAsync([FromBody] CreateUserModel user)
     {
-        return await ExecuteAsync(() => _baseUserService.AddAsync<CreateUserModel, UserModel, RegisterUserValidator>(user));
+        return await ExecuteAsync(() => _userService.RegisterAsync<CreateUserModel, RegisterUserValidator>(user));
     }
 
     [HttpPost("login")]
@@ -40,7 +37,7 @@ public class UserController : ControllerBase
     [HttpGet("get-all-users")]
     public async Task<IActionResult> GetAllUsers()
     {
-        return await ExecuteAsync(() => _baseUserService.GetAsync<GetUserModel>());
+        return await ExecuteAsync(() => _userService.GetUsersAsync<GetUserModel>());
     }
     
     [Authorize(Policy = "IsActiveAndAdmin")]

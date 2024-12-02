@@ -32,7 +32,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         await _context.SaveChangesAsync();
     }
 
-    public  async Task<IEnumerable<TEntity>> SelectAsync() =>
+    public async Task<IEnumerable<TEntity>> SelectAsync() =>
         await _context.Set<TEntity>().ToListAsync();
 
     public async Task<TEntity> SelectAsync(Guid id) =>

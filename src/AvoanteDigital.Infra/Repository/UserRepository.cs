@@ -14,11 +14,20 @@ public class UserRepository : IUserRepository
         _context = context;
     }
 
+    public async Task RegisterAsync(User user)
+    {
+        await _context.Set<User>().AddAsync(user);
+        await _context.SaveChangesAsync();
+    }
+
     public async Task UpdateUserAsync(User user)
     {
         _context.Entry(user).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
+    
+    public async Task<IEnumerable<User>> SelectUserAsync() => 
+        await _context.Set<User>().ToListAsync();
     
     public async Task<User> SelectUserAsync(string email) =>
         await _context.Users.SingleOrDefaultAsync(u => u.Email == email);

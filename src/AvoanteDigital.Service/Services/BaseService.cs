@@ -17,19 +17,14 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
         _mapper = mapper;
     }
     
-    public async Task<TOutputModel> AddAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    public async Task<bool> AddAsync<TInputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
-        where TOutputModel : class
     {
         TEntity entity = _mapper.Map<TEntity>(inputModel);
-        
         await Validate(entity, Activator.CreateInstance<TValidator>());
         await _repository.InsertAsync(entity);
-        
-        TOutputModel outputModel = _mapper.Map<TOutputModel>(entity);
-        
-        return outputModel;
+        return true;
     }
 
     public async Task DeleteAsync(Guid id) => await _repository.DeleteAsync(id);
@@ -52,19 +47,14 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
         return outputModel;
     }
 
-    public async Task<TOutputModel> UpdateAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    public async Task<bool> UpdateAsync<TInputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
-        where TOutputModel : class
     {
         TEntity entity = _mapper.Map<TEntity>(inputModel);
-
         await Validate(entity, Activator.CreateInstance<TValidator>());
         await _repository.UpdateAsync(entity);
-
-        TOutputModel outputModel = _mapper.Map<TOutputModel>(entity);
-
-        return outputModel;
+        return true;
     }
 
     private async Task Validate(TEntity obj, AbstractValidator<TEntity> validator)

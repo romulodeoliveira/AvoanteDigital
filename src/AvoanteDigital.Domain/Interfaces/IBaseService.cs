@@ -5,10 +5,9 @@ namespace AvoanteDigital.Domain.Interfaces;
 
 public interface IBaseService<TEntity> where TEntity : Entity
 {
-    Task<TOutputModel> AddAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    Task<bool> AddAsync<TInputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
-        where TInputModel : class
-        where TOutputModel : class;
+        where TInputModel : class;
 
     Task DeleteAsync(Guid id);
 
@@ -16,8 +15,7 @@ public interface IBaseService<TEntity> where TEntity : Entity
 
     Task<TOutputModel> GetByIdAsync<TOutputModel>(Guid id) where TOutputModel : class;
 
-    Task<TOutputModel> UpdateAsync<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
+    Task<bool> UpdateAsync<TInputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
-        where TInputModel : class
-        where TOutputModel : class;
+        where TInputModel : class;
 }

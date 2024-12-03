@@ -27,7 +27,7 @@ public class CustomerController : ControllerBase
     [HttpPost("submit-data")]
     public async Task<IActionResult> CreateAsync([FromBody] CreateCustomerModel customer)
     {
-        return await ExecuteAsync(() => _baseCustomerService.AddAsync<CreateCustomerModel, CustomerModel, CustomerValidator>(customer));
+        return await ExecuteAsync(() => _baseCustomerService.AddAsync<CreateCustomerModel, CustomerValidator>(customer));
     }
     
     private async Task<IActionResult> ExecuteAsync<T>(Func<Task<T>> func)
@@ -36,6 +36,13 @@ public class CustomerController : ControllerBase
         {
             var result = await func();
             return Ok(result);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized(new 
+            {
+                Message = "Você não tem permissão para acessar este recurso."
+            });
         }
         catch (Exception error)
         {

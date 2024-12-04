@@ -54,6 +54,36 @@ namespace AvoanteDigital.Infra.Migrations
                     b.ToTable("Customer", (string)null);
                 });
 
+            modelBuilder.Entity("AvoanteDigital.Domain.Entities.Ebook", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<byte[]>("PDF")
+                        .IsRequired()
+                        .HasColumnType("LONGBLOB");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ebooks", (string)null);
+                });
+
             modelBuilder.Entity("AvoanteDigital.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")

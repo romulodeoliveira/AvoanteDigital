@@ -96,8 +96,8 @@ builder.Services.AddDbContextPool<DataContext>(options =>
 builder.Services.AddScoped<IBaseRepository<Customer>, BaseRepository<Customer>>();
 builder.Services.AddScoped<IBaseService<Customer>, BaseService<Customer>>();
 
-builder.Services.AddScoped<IBaseRepository<User>, BaseRepository<User>>();
-builder.Services.AddScoped<IBaseService<User>, BaseService<User>>();
+builder.Services.AddScoped<IBaseRepository<Ebook>, BaseRepository<Ebook>>();
+builder.Services.AddScoped<IBaseService<Ebook>, BaseService<Ebook>>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();

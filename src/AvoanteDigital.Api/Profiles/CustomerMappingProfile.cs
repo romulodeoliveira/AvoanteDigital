@@ -1,4 +1,5 @@
 using AutoMapper;
+using AvoanteDigital.Api.Models.Campaign;
 using AvoanteDigital.Api.Models.Customer;
 using AvoanteDigital.Api.Models.User;
 using AvoanteDigital.Domain.Entities;
@@ -32,5 +33,8 @@ public class CustomerMappingProfile : Profile
         CreateMap<UpdateProfileModel, User>();
         CreateMap<UserActivityModel, User>()
             .ForMember(dest => dest.Role, opt => opt.MapFrom(src => (UserRole)src.UserRole));
+        
+        // Ebook
+        CreateMap<CreateEbookModel, Ebook>();
     }
 }

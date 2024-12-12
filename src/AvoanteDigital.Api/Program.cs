@@ -104,6 +104,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 // Automapper ()
 builder.Services.AddAutoMapper(typeof(CustomerMappingProfile));
+builder.Services.AddAutoMapper(typeof(UserMappingProfile));
+builder.Services.AddAutoMapper(typeof(EbookMappingProfile));
 
 var app = builder.Build();
 

@@ -9,7 +9,7 @@ public interface IBaseService<TEntity> where TEntity : Entity
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class;
 
-    Task DeleteAsync(Guid id);
+    Task<bool> DeleteAsync(Guid id);
 
     Task<IEnumerable<TOutputModel>> GetAsync<TOutputModel>() where TOutputModel : class;
 

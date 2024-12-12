@@ -18,10 +18,36 @@ public class EbookController : ControllerBase
     }
     
     // https://base64.guru/converter/encode/pdf
+    
+    [HttpGet("get-all-data")]
+    public async Task<IActionResult> GetAllDataAsync()
+    {
+        return await ExecuteAsync(() => _baseEbookService.GetAsync<GetEbookModel>());
+    }
+    
+    [HttpGet("get-data-by-id/{id}")]
+    public async Task<IActionResult> GetByDataAsync(Guid id)
+    {
+        return await ExecuteAsync(() => _baseEbookService.GetByIdAsync<GetEbookModel>(id));
+    }
+    
     [HttpPost("submit-data")]
     public async Task<IActionResult> CreateAsync([FromBody] CreateEbookModel request)
     {
         return await ExecuteAsync(() => _baseEbookService.AddAsync<CreateEbookModel, CreateEbookValidator>(request));
+    }
+    
+    [HttpPut("update-data")]
+    public async Task<IActionResult> UpdateDataAsync([FromBody] UpdateEbookModel request)
+    {
+        return await ExecuteAsync(() => _baseEbookService.UpdateAsync<UpdateEbookModel, UpdateEbookValidator>(request));
+    }
+
+        
+    [HttpDelete("delete-data/{id}")]
+    public async Task<IActionResult> DeleteDataAsync(Guid id)
+    {
+        return await ExecuteAsync(() => _baseEbookService.DeleteAsync(id));
     }
     
     private async Task<IActionResult> ExecuteAsync<T>(Func<Task<T>> func)

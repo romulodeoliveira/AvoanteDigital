@@ -8,6 +8,8 @@ public class EbookMappingProfile : Profile
 {
     public EbookMappingProfile()
     {
+        CreateMap<Ebook, GetEbookModel>();
         CreateMap<CreateEbookModel, Ebook>();
+        CreateMap<UpdateEbookModel, Ebook>();
     }
 }

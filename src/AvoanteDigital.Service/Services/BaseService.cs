@@ -10,13 +10,13 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
     private readonly IBaseRepository<TEntity> _repository;
 
     private readonly IMapper _mapper;
-    
+
     public BaseService(IBaseRepository<TEntity> repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
     }
-    
+
     public async Task<bool> AddAsync<TInputModel, TValidator>(TInputModel inputModel)
         where TValidator : AbstractValidator<TEntity>
         where TInputModel : class
@@ -27,9 +27,13 @@ public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : Entity
         return true;
     }
 
-    public async Task DeleteAsync(Guid id) => await _repository.DeleteAsync(id);
+    public async Task<bool> DeleteAsync(Guid id)
+    {
+        await _repository.DeleteAsync(id);
+        return true;
+    }
 
-    public async Task<IEnumerable<TOutputModel>> GetAsync<TOutputModel>() where TOutputModel : class
+public async Task<IEnumerable<TOutputModel>> GetAsync<TOutputModel>() where TOutputModel : class
     {
         var entities = await _repository.SelectAsync();
         
